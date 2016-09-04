@@ -31,9 +31,11 @@ function getCityWeatherInfo() {
  
 
  var tmp = r.main.temp;
-  var wind = r.wind.speed;
+ tmp = getKelvinToCelsius(tmp);
+ var wind = r.wind.speed;
  var weather = r.weather[0].description;
  var updatedTime = r.dt;
+ updatedTime = getDateTimeFormat(updatedTime);
   
  document.getElementById("T1").innerHTML = tmp;
  document.getElementById("W1").innerHTML = wind;
@@ -44,6 +46,22 @@ function getCityWeatherInfo() {
 
 </script>
 
+<script>
+function getKelvinToCelsius( temp){
+	var tempinC = temp-273.15;
+	tempinC = tempinC.toFixed(2);
+	return tempinC;
+}
+
+</script>
+<script >
+function getDateTimeFormat( time){
+	var myDate = new Date( time *1000);
+	return (myDate.toLocaleString())
+	
+}
+
+</script>
 <body>
 <Table>
 <tr><td>City</td> <td> <select name="Cities" id="City" onchange="getCityWeatherInfo()">
